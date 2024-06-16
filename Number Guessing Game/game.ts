@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import inquirer from "inquirer";
 
 let num: number = Math.floor(Math.random() * 10 + 1);

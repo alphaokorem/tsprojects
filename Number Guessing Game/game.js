@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import inquirer from "inquirer";
 let num = Math.floor(Math.random() * 10 + 1);
 console.log("You have three chances. Choose your numbers wisely. Or risk it all on one single number to see how lucky you truely are.");
