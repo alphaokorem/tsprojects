@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
-console.log("Welcome.");
 let cash = 20000;
+console.log(`Welcome.\nYour current balance is ${cash}.`);
 let input_pin = await inquirer.prompt({
     name: "pin",
     message: "Please enter PIN.",
@@ -14,14 +14,26 @@ if (input_pin.pin === my_pin) {
             message: "What do you wish to do?",
             type: "list",
             name: "process",
-            choices: ["Check Balance", "Withdraw"]
+            choices: ["Check Balance", "Withdraw"],
         },
     ]);
     if (a.process === "Check Balance") {
-        console.log(`Your current balance is ${cash}`);
+        console.log(`Your current balance is ${cash} $.`);
     }
-    else if (a.process === )
-        ;
+    else if (a.process === "Withdraw") {
+        const b = await inquirer.prompt({
+            name: "amount",
+            message: "Enter Amount: ",
+            type: "number",
+        });
+        if (b.amount <= cash) {
+            let new_Cash = cash - b.amount;
+            console.log(`You withdrew ${b.amount} $.\nYour current balance is ${new_Cash} $`);
+        }
+        else {
+            console.log(`Your current balance is ${cash}.\n${b.amount} exceeds the limit of the current balanace.\nPlease enter a valid amount.`);
+        }
+    }
 }
 else {
     console.log("Wrong PIN.");

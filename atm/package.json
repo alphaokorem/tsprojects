@@ -11,7 +11,7 @@
   "author": "alphaokorem",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^10.0.1"
+    "inquirer": "^9.3.0"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.7"
