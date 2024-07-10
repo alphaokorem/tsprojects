@@ -1,3 +1,4 @@
+#! usr/bin/env node
 import inquirer from "inquirer";
 let cash = 20000;
 console.log(`Welcome.\nYour current balance is ${cash}.`);
