@@ -1,3 +1,4 @@
+#! usr/bin/env node
 import { select, input, confirm } from "@inquirer/prompts";
 import chalk from "chalk";
 // quiz system
