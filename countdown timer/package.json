@@ -1,0 +1,21 @@
+{
+  "name": "@alphaokorem/countdown-timer",
+  "version": "1.0.0",
+  "description": "a countdown timer",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": "main.js",
+  "keywords": [],
+  "author": "abdulhadifaisal/alphaokorem",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^5.3.8",
+    "chalk": "^5.3.0"
+  }
+}
