@@ -10,6 +10,9 @@ if (formate === "Seconds") {
     let inputSec = (await number({
         message: "Enter time in seconds: ",
     }));
+    if (inputSec <= 0 || inputSec == undefined) {
+        process.exit(0);
+    }
     function timer() {
         if (inputSec == undefined) {
             process.exit(0);
@@ -44,17 +47,18 @@ else if (formate === "Minutes") {
         message: "Enter time in seconds: ",
     }));
     function timer() {
-        if (inputMin == undefined && inputSec == undefined) { //   if seconds and minutes are undefined
+        if ((inputSec <= 0 || inputSec == undefined) && (inputMin <= 0 || inputMin == undefined)) { //   if seconds and minutes are undefined
             inputMin = 0;
             inputSec = 0;
             process.exit(0);
         }
         console.log(`${inputMin} : ${inputSec}`);
         setInterval(() => {
-            if (inputMin == 0) { // if input minutes are undefined, only seconds are counted down
+            if (inputMin == 0 || inputMin == undefined) { // if input minutes are undefined, only seconds are counted down
                 let sum = inputSec + seconds;
                 inputSec--;
                 sum--;
+                inputMin = 0;
                 console.log(`${inputMin} : ${inputSec}`);
                 if (sum == seconds) {
                     process.exit(0);
