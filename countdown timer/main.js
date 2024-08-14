@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import { number } from "@inquirer/prompts";
 import { differenceInSeconds } from "date-fns";
 let input = (await number({ message: "Enter time: " }));
