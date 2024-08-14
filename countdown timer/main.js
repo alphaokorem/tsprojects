@@ -1,81 +1,19 @@
-#! /usr/bin/env node
-import { number, select } from "@inquirer/prompts";
-let formate = await select({
-    message: "Minutes or Seconds?",
-    choices: [{ value: "Minutes" }, { value: "Seconds" }],
-});
-let seconds = new Date().getSeconds();
-let mins = new Date().getMinutes();
-if (formate === "Seconds") {
-    let inputSec = (await number({
-        message: "Enter time in seconds: ",
-    }));
-    if (inputSec <= 0 || inputSec == undefined) {
-        process.exit(0);
-    }
-    function timer() {
-        if (inputSec == undefined) {
+import { number } from "@inquirer/prompts";
+import { differenceInSeconds } from "date-fns";
+let input = (await number({ message: "Enter time: " }));
+function timer(value) {
+    let normalTime = new Date();
+    let change = new Date().setSeconds(normalTime.getSeconds() + value + 1); // the input time is added to the normalTime but it is not in any format right now, only numbers
+    let newTime = new Date(change);
+    setInterval(() => {
+        let normalTim = new Date();
+        let diff = differenceInSeconds(newTime, normalTim);
+        if (diff <= 0 || input == undefined) {
             process.exit(0);
         }
-        console.log(inputSec);
-        let sum = inputSec + seconds;
-        setInterval(() => {
-            inputSec--;
-            sum--;
-            console.log(inputSec);
-            if (sum == seconds) {
-                process.exit(0);
-            }
-        }, 1000);
-    }
-    timer();
-    //             THE FOLLOWING IS DONE WITHOUT USING "DATE"
-    //   console.log(inputSec);
-    //   setInterval(() => {
-    //     inputSec--;
-    //     console.log(inputSec);
-    //     if (inputSec == 0) {
-    //       process.exit(0);
-    //     }
-    //   }, 1000);
+        let minutes = Math.floor(diff / 60);
+        let seconds = Math.floor(diff % 60);
+        console.log(`${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`);
+    }, 1000);
 }
-else if (formate === "Minutes") {
-    let inputMin = (await number({
-        message: "Enter time in minutes: ",
-    }));
-    let inputSec = (await number({
-        message: "Enter time in seconds: ",
-    }));
-    function timer() {
-        if ((inputSec <= 0 || inputSec == undefined) && (inputMin <= 0 || inputMin == undefined)) { //   if seconds and minutes are undefined
-            inputMin = 0;
-            inputSec = 0;
-            process.exit(0);
-        }
-        console.log(`${inputMin} : ${inputSec}`);
-        setInterval(() => {
-            if (inputMin == 0 || inputMin == undefined) { // if input minutes are undefined, only seconds are counted down
-                let sum = inputSec + seconds;
-                inputSec--;
-                sum--;
-                inputMin = 0;
-                console.log(`${inputMin} : ${inputSec}`);
-                if (sum == seconds) {
-                    process.exit(0);
-                }
-            }
-            else if (inputMin > 0) {
-                let sumSec = inputSec + seconds;
-                let sumMin = inputMin + mins;
-                inputSec--;
-                sumSec--;
-                console.log(`${inputMin} : ${inputSec}`);
-                if (inputSec == 0) {
-                    inputMin--; // if input seconds hit zero, one minute has passed
-                    inputSec = 60;
-                }
-            }
-        }, 1000);
-    }
-    timer();
-}
+timer(input);
